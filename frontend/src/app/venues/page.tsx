@@ -75,7 +75,7 @@ function VenuesContent() {
         skillLevel: 'all' as const,
         timings: { open: '00:00', close: '00:00' },
         description: i.description || '',
-        imageUrl: i.imageUrl || 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800',
+        imageUrl: i.imageUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjW-Mq-ylpMsJU7nzhOnD4_SmunuSU7QwsfA&s',
         category: 'infrastructure',
         available: false,
         ownerId: 'system',
@@ -131,7 +131,7 @@ function VenuesContent() {
         coordinates: v.coordinates,
         mapType: 'infrastructure' as const,
         sport: v.sport,
-        imageUrl: v.imageUrl || 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800',
+        imageUrl: v.imageUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjW-Mq-ylpMsJU7nzhOnD4_SmunuSU7QwsfA&s',
         venueCode: v.venueCode,
         ownershipStatus: v.ownershipStatus,
       }));

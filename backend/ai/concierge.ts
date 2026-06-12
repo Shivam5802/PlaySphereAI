@@ -203,7 +203,7 @@ JSON:`;
       skillLevel: 'all' as any,
       timings: { open: '00:00', close: '00:00' },
       description: i.description || '',
-      imageUrl: i.imageUrl || 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=800',
+      imageUrl: i.imageUrl || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjW-Mq-ylpMsJU7nzhOnD4_SmunuSU7QwsfA&s',
       category: 'infrastructure',
       available: false,
       ownerId: i.ownerId || 'system',
