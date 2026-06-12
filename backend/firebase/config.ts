@@ -47,6 +47,6 @@ if (hasValidKeys) {
   db = {} as any;
 }
 
-export { app, auth, db };
+export { app, auth, db, hasValidKeys as isFirebaseEnabled };
 export default app;
 

@@ -3,7 +3,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, onAuthStateChanged, onIdTokenChanged, getRedirectResult } from 'firebase/auth';
 import { onSnapshot, doc } from 'firebase/firestore';
-import { auth, db } from '@/backend/firebase/config';
+import { auth, db, isFirebaseEnabled } from '@/backend/firebase/config';
 import { UserProfile } from '@/shared/types';
 import { ensureUserProfile } from '@/backend/firebase/auth';
 
@@ -41,6 +41,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!isFirebaseEnabled) {
+      setUser(null);
+      setProfile(null);
+      setLoading(false);
+      return;
+    }
+
     let unsubscribeProfile: (() => void) | null = null;
     let timeoutId: NodeJS.Timeout | null = null;
 
