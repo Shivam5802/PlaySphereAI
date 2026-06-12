@@ -9,7 +9,7 @@ import {
   User,
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
-import { auth, db } from './config';
+import { auth, db, isFirebaseEnabled } from './config';
 import { UserProfile, UserRole } from '@/shared/types';
 
 const googleProvider = new GoogleAuthProvider();
@@ -24,6 +24,28 @@ function getAdminEmails(): string[] {
 }
 
 export async function signInWithGoogle() {
+  if (!isFirebaseEnabled) {
+    const mockUser = {
+      uid: 'mock-google-user-id',
+      email: 'google-user@example.com',
+      displayName: 'Mock Google User',
+    } as any;
+    const mockProfile = {
+      uid: 'mock-google-user-id',
+      email: 'google-user@example.com',
+      displayName: 'Mock Google User',
+      role: 'player',
+      savedVenues: [],
+    } as any;
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('mock_user', JSON.stringify(mockUser));
+      localStorage.setItem('mock_profile', JSON.stringify(mockProfile));
+      document.cookie = `auth-token=mock-token; path=/; max-age=${3600 * 24 * 7}; SameSite=Lax`;
+      window.location.reload();
+    }
+    return mockUser;
+  }
+
   try {
     const result = await signInWithPopup(auth, googleProvider);
     // Google sign-in always defaults to 'player' role (unless email is whitelisted admin)
@@ -44,6 +66,51 @@ export async function signInWithGoogle() {
 }
 
 export async function signInWithEmail(email: string, password: string) {
+  if (!isFirebaseEnabled) {
+    const adminEmails = getAdminEmails();
+    const userEmail = email.toLowerCase();
+    const isAdmin = adminEmails.length > 0 && adminEmails.includes(userEmail);
+    
+    let role: UserRole = 'player';
+    let name = 'Demo User';
+    
+    if (isAdmin || email === 'admin@playsphere.in') {
+      role = 'admin';
+      name = 'System Admin';
+    } else if (email === 'rahul@playsphere.in') {
+      role = 'owner';
+      name = 'Rahul Verma (Owner)';
+    } else if (email === 'arjun@playsphere.in') {
+      role = 'player';
+      name = 'Arjun Sharma';
+    } else {
+      role = 'player';
+      name = email.split('@')[0];
+    }
+
+    const mockUser = {
+      uid: `mock-uid-${role}`,
+      email: email,
+      displayName: name,
+    } as any;
+    const mockProfile = {
+      uid: `mock-uid-${role}`,
+      email: email,
+      displayName: name,
+      role: role,
+      savedVenues: [],
+      approvalStatus: role === 'owner' ? 'approved' : undefined,
+    } as any;
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('mock_user', JSON.stringify(mockUser));
+      localStorage.setItem('mock_profile', JSON.stringify(mockProfile));
+      document.cookie = `auth-token=mock-token; path=/; max-age=${3600 * 24 * 7}; SameSite=Lax`;
+      window.location.reload();
+    }
+    return mockUser;
+  }
+
   const result = await signInWithEmailAndPassword(auth, email, password);
   await ensureUserProfile(result.user);
   return result.user;
@@ -55,6 +122,30 @@ export async function signUpWithEmail(
   displayName: string,
   role: 'player' | 'owner' = 'player'
 ) {
+  if (!isFirebaseEnabled) {
+    const mockUser = {
+      uid: `mock-uid-${role}-${Date.now()}`,
+      email: email,
+      displayName: displayName,
+    } as any;
+    const mockProfile = {
+      uid: mockUser.uid,
+      email: email,
+      displayName: displayName,
+      role: role,
+      savedVenues: [],
+      approvalStatus: role === 'owner' ? 'approved' : undefined,
+    } as any;
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('mock_user', JSON.stringify(mockUser));
+      localStorage.setItem('mock_profile', JSON.stringify(mockProfile));
+      document.cookie = `auth-token=mock-token; path=/; max-age=${3600 * 24 * 7}; SameSite=Lax`;
+      window.location.reload();
+    }
+    return mockUser;
+  }
+
   const result = await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(result.user, { displayName });
   await ensureUserProfile(result.user, displayName, role);
@@ -62,6 +153,15 @@ export async function signUpWithEmail(
 }
 
 export async function logOut() {
+  if (!isFirebaseEnabled) {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('mock_user');
+      localStorage.removeItem('mock_profile');
+      document.cookie = `auth-token=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+      window.location.reload();
+    }
+    return;
+  }
   await signOut(auth);
 }
 
