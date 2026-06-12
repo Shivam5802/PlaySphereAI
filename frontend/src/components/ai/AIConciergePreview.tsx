@@ -173,7 +173,7 @@ export function AIConciergePreview() {
           <div className="font-display font-black text-white uppercase tracking-wider text-sm [text-shadow:1.5px_1.5px_0px_#000]">PlaySphere AI Concierge</div>
           <div className="flex items-center gap-1.5">
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 border border-black animate-pulse" />
-            <span className="text-xs text-white/95 font-semibold">Online • Powered by Llama 3.1</span>
+            <span className="text-xs text-white/95 font-semibold">Online • Powered by Gemini</span>
           </div>
         </div>
         <Sparkles className="w-4 h-4 text-yellow-400 ml-auto fill-yellow-400" />

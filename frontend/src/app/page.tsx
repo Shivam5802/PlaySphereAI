@@ -315,7 +315,7 @@ export default async function HomePage() {
               <div className="inline-flex items-center gap-2 rounded-sm px-3 py-2 bg-card border-2 border-black mb-6 shadow-[2px_2px_0px_#000]">
                 <Bot className="w-3.5 h-3.5 text-cyan-400 flex-shrink-0" />
                 <span className="font-mono-label text-[9px] text-cyan-400 tracking-[0.18em]">
-                  POWERED BY LLAMA 3.1
+                  POWERED BY GEMINI
                 </span>
               </div>
 

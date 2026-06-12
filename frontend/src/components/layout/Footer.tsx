@@ -121,7 +121,7 @@ export function Footer() {
             className="text-slate-600 text-[10px] uppercase tracking-[0.1em] font-bold"
             style={{ fontFamily: 'var(--font-space-mono, monospace)' }}
           >
-            LLAMA 3.1 · FIREBASE · NEXT.JS · AI DAYS FOR STARTUPS INDIA 2026
+            GEMINI · FIREBASE · NEXT.JS · AI DAYS FOR STARTUPS INDIA 2026
           </p>
         </div>
       </div>
