@@ -5,6 +5,10 @@
 <h1 align="center">🏟️ PlaySphere</h1>
 <h3 align="center">Agentic AI Sports Infrastructure Discovery & Booking Platform</h3>
 
+> [!IMPORTANT]
+> **🚀 Generated via Antigravity**  
+> This project was fully generated, debugged, and optimized using **Antigravity** (Google DeepMind's agentic AI coding assistant) for the **AI Day for Startups India 2026** event held at **IIM Lucknow** by Team **Deepstack**.
+
 <p align="center">
 <strong>Your Intelligent Sports Copilot — Find, Compare & Book Courts Using Natural Language</strong>
 </p>
